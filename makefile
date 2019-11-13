@@ -14,11 +14,14 @@ default: main
 # main.o:
 #
 
-main: main.o utils.o adjlist.o
-	$(CC) $(CFLAGS) -o main main.o utils.o adjlist.o
+main: main.o deque.o utils.o adjlist.o
+	$(CC) $(CFLAGS) -o main main.o deque.o utils.o adjlist.o
 
-main.o: main.c main.h utils.h adjlist.h
+main.o: main.c main.h deque.h utils.h adjlist.h
 	$(CC) $(CFLAGS) -c main.c
+
+deque.o: deque.c deque.h
+	$(CC) $(CFLAGS) -c deque.c
 
 utils.o: utils.c utils.h
 	$(CC) $(CFLAGS) -c utils.c
