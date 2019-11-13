@@ -1,34 +1,20 @@
 #include "adjlist.h"
 
-struct _routinglist
-{
-    int parent;
-	int route_type;
-	int no_hops;
-};
-
 struct _adjarraynode
 {
     deque_node *head_clients;
 	deque_node *head_peers;
 	deque_node *head_providers;
-	routing_list_node *routing_list;
 	bool flag_active;
 };
 
 adj_array_node *create_adjacency_array(){
-	int i = 0, j=0;
+	int i = 0;
 	adj_array_node *array = (adj_array_node *) malloc(SIZE*sizeof(adj_array_node));
 	for(i=0; i<SIZE; i++){
 		array[i].head_clients = NULL;
 		array[i].head_peers = NULL;
 		array[i].head_providers = NULL;
-		array[i].routing_list = (routing_list_node *) malloc(SIZE*sizeof(routing_list_node));
-		for(j=0; j<SIZE; j++){
-				array[i].routing_list[j].parent = -1;
-				array[i].routing_list[j].route_type = -1;
-				array[i].routing_list[j].no_hops= -1;
-		}
 		array[i].flag_active = false;
 	}
 
@@ -50,7 +36,25 @@ void free_adjacency_array(adj_array_node* array){
 		free_list(array[i].head_clients);
 		free_list(array[i].head_peers);
 		free_list(array[i].head_providers);
-		free(array[i].routing_list);
-
 	}
+}
+
+adj_array_node *append_provider(int head, int tail, adj_array_node *array){
+	append(array[head].head_providers, tail);
+	return array;
+}
+
+adj_array_node *append_peer(int head, int tail, adj_array_node *array){
+	append(array[head].head_peers, tail);
+	return array;
+}
+
+adj_array_node *append_client(int head, int tail, adj_array_node *array){
+	append(array[head].head_clients, tail);
+	return array;
+}
+
+adj_array_node *setActive(int node, bool active, adj_array_node *array){
+	array[node].flag_active = active;
+	return array;
 }

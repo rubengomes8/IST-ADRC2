@@ -8,5 +8,5 @@
 typedef struct _deque deque_node;
 
 deque_node *getNext(deque_node *head);
-deque_node *append(deque_node *head, int payload);
+deque_node *append(deque_node *head, int node);
 int pop(deque_node *head);

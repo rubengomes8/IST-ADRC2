@@ -23,7 +23,8 @@ int main(int argc, char *argv[]){
 		adj_array = create_adjacency_array();
 
 		// Preencher grafo invertido a partir do ficheiro
-
+		adj_array = load_inverted_graph(fp, adj_array);
+		
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
 
 		// Fazer estatísticas
