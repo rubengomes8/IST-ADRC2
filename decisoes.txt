@@ -1,0 +1,6 @@
+Estrutura de dados:
+- Vetor de listas de adjacências
+
+
+
+
