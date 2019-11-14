@@ -8,10 +8,7 @@ int main(int argc, char *argv[]){
 	FILE *fp ;
 	adj_array_node *adj_array = NULL;
 	int i=0;
-	int d_nhops[SIZE];
-	int d_route[SIZE];
-	int parent[SIZE];
-	int selected[SIZE];
+	
 
 
 	int *types = (int *) malloc(3*sizeof(int));
@@ -40,29 +37,35 @@ int main(int argc, char *argv[]){
 		//print_graph(adj_array);
 
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
+		/*
+		printf("Active nodes\n");
 		for(i=0; i<SIZE;i++){
-			d_nhops[i] = 66000;
-			d_route[i] = 4;
-			parent[i] = 0;
-			selected[i] = 0;
-		}
-
-		for(i=0; i<SIZE; i++){
 			if (isActive(adj_array, i)){
-				printf("Dijkstra for node: %d\n", i);
+				printf("node: %d\n", i); 
+			}
+		}*/
+		for(i=0; i<SIZE; i++){			
+			if (isActive(adj_array, i)==true){
+				//printActive(adj_array);
+				//printf("Dijkstra for node: %d\n", i);
 
 				//dijkstraCommercial(adj_array, i, d_nhops, d_route, parent, selected, &types, &length_cum);
-				dijkstraCommercial(adj_array, i, d_nhops, d_route, parent, selected, &types, &length_cum);
+				adj_array=dijkstraCommercial(adj_array, i, &types, &length_cum);
+				if (i % 500 == 0)
+                    printf("Dijkstra done for source : %d\n", i);
+				
 			}
 		}
 
-		printf("\nTYPES: %d", types[0]);
+		//printf("\nTYPES: %d", types[0]);
 		// Fazer estatísticas
 
 		// Libertar memória
 		//free_adjacency_array(adj_array);
+		
 	}
 
 	printf("Por implementar...\n");
-	fclose(fp);
+	//fclose(fp);
+	exit(1);
 }

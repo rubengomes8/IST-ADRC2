@@ -75,3 +75,16 @@ deque_node *getPeers(adj_array_node *array, int node){
 deque_node *getProviders(adj_array_node *array, int node){
 	return array[node].head_providers;
 }
+
+
+void printActive(adj_array_node *array){
+	for(int i=0; i<12; i++){
+		printf("Node: %d  -> ", i );
+		if( array[i].flag_active==true){
+			printf("flag= 1\n");
+		}
+		else {
+			printf("flag= 0\n");
+		}
+	}
+}

@@ -1,20 +1,39 @@
 #include "dijkstra.h"
 
-void dijkstraCommercial(adj_array_node *array, int src, int d_nhops[], int d_route[], int parent[], int selected[], int *types[], int *length_cum[]){
+adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int *types[], int *length_cum[]){
 
 	bool flag_abort=false;
-	int node_selected;
+
+	int node_selected, i=0;
 	int ngbr;
-	d_nhops[src]=0;
-    d_route[src]=1;
-    parent[src]=src;
+	int d_nhops[SIZE];
+	int d_route[SIZE];
+	int parent[SIZE];
+	int selected[SIZE];
+
     deque_node *queue_clients = NULL;
     deque_node *queue_peers = NULL;
     deque_node *queue_providers = NULL;
 	deque_node *clients = NULL;
 	deque_node *peers = NULL;
 	deque_node *providers = NULL;
+
+	for(i=0; i<SIZE;i++){
+		d_nhops[i] = 66000;
+		d_route[i] = 4;	
+		parent[i]=0;
+		selected[i]=0;	
+	}
+
+	d_nhops[src]=0;
+    d_route[src]=1;
+    parent[src]=src;
+
+
     queue_providers = append(queue_providers, src);
+
+
+
 	//printf("Adeus");
     while(queue_clients != NULL || queue_peers != NULL || queue_providers != NULL){
 		while(true){
@@ -28,7 +47,7 @@ void dijkstraCommercial(adj_array_node *array, int src, int d_nhops[], int d_rou
 				flag_abort = true;
 				break;
 			}
-			printf("Node selected: %d\n", node_selected);
+			//printf("Node selected: %d\n", node_selected);
 			if(selected[node_selected] == 1){
 			}else{
 				break;
@@ -43,6 +62,7 @@ void dijkstraCommercial(adj_array_node *array, int src, int d_nhops[], int d_rou
 		selected[node_selected] = 1; // mark it as already selected
 		clients = getClients(array, node_selected);
 		while(clients != NULL){
+			
 			ngbr = getNode(clients);
 			if(d_route[ngbr] > max(d_route[node_selected], 3)){
 				d_nhops[ngbr] = d_nhops[node_selected] + 1;
@@ -79,7 +99,7 @@ void dijkstraCommercial(adj_array_node *array, int src, int d_nhops[], int d_rou
 			}
 		}
     }
-	return;
+	return array;
 }
 
 int max(int a, int b){

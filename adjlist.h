@@ -22,3 +22,5 @@ bool isActive(adj_array_node *array, int node);
 deque_node *getClients(adj_array_node *array, int node);
 deque_node *getPeers(adj_array_node *array, int node);
 deque_node *getProviders(adj_array_node *array, int node);
+
+void printActive(adj_array_node *array);
