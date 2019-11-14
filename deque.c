@@ -24,11 +24,23 @@ deque_node *append(deque_node *head, int node){
 }
 
 
-int pop(deque_node *head){
-	int node = head->node;
-	deque_node *aux = head;
-	head = head->next;
+int pop(deque_node **head){
+	int node = (*head)->node;
+	deque_node *aux = *head;
+	*head = (*head)->next;
+	aux->next = NULL;
 	free(aux);
 	return node;
 }
 
+void print_list(deque_node *head){
+	if (head == NULL)
+		printf("Cannot print an empty list");
+	else{
+		while(head != NULL){
+			printf("%d\t", head->node);
+			head = getNext(head);
+		}
+	}
+	printf("\n");
+}

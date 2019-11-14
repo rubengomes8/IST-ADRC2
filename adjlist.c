@@ -37,6 +37,7 @@ void free_adjacency_array(adj_array_node* array){
 		free_list(array[i].head_peers);
 		free_list(array[i].head_providers);
 	}
+	free(array);
 }
 
 adj_array_node *append_provider(int head, int tail, adj_array_node *array){
@@ -59,7 +60,7 @@ adj_array_node *setActive(int node, bool active, adj_array_node *array){
 	return array;
 }
 
-bool isAvtive(adj_array_node *array, int node){
+bool isActive(adj_array_node *array, int node){
 	return array[node].flag_active;
 }
 

@@ -30,13 +30,13 @@ void print_graph(adj_array_node * array){
 	int i=0;
 	deque_node *clients, *peers, *providers;
 	for(i=0; i <SIZE; i++){
-		if (isAvtive(array, i)==true){
-			printf("Node: %d\n", i);
+		if (isActive(array, i)==true){
+			printf("\nNode: %d\n", i);
 			clients=getClients(array,i);
 			printf("Clients:\n");
 			while (clients!=NULL)
 			{
-				printf("%d-> ", getNode(clients));
+				printf("%d -> ", getNode(clients));
 				clients=getNext(clients);
 			}
 			peers=getPeers(array,i);
@@ -44,7 +44,7 @@ void print_graph(adj_array_node * array){
 			printf("Peers:\n");
 			while (peers!=NULL)
 			{
-				printf("%d->", getNode(peers));
+				printf("%d ->", getNode(peers));
 				peers=getNext(peers);
 			}
 			providers=getProviders(array,i);
@@ -52,7 +52,7 @@ void print_graph(adj_array_node * array){
 			printf("Providers:\n");
 			while (providers!=NULL)
 			{
-				printf("%d-> ", getNode(providers));
+				printf("%d -> ", getNode(providers));
 				providers=getNext(providers);
 			}
 			printf("\n");
