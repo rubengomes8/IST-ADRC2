@@ -14,10 +14,10 @@ default: main
 # main.o:
 #
 
-main: main.o deque.o utils.o adjlist.o
-	$(CC) $(CFLAGS) -o main main.o deque.o utils.o adjlist.o
+main: main.o deque.o utils.o adjlist.o dijkstra.o
+	$(CC) $(CFLAGS) -o main main.o deque.o utils.o adjlist.o dijkstra.o
 
-main.o: main.c main.h deque.h utils.h adjlist.h
+main.o: main.c main.h deque.h utils.h adjlist.h dijkstra.h
 	$(CC) $(CFLAGS) -c main.c
 
 deque.o: deque.c deque.h
@@ -29,7 +29,8 @@ utils.o: utils.c utils.h
 adjlist.o: adjlist.c adjlist.h
 	$(CC) $(CFLAGS) -c adjlist.c
 
-
+dijkstra.o: dijkstra.c dijkstra.h
+	$(CC) $(CFLAGS) -c dijkstra.c
 
 # To start over from scratch, type 'make clean'.  This
 # removes the executable file, as well as old .o object

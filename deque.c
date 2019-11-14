@@ -10,6 +10,10 @@ deque_node *getNext(deque_node *head){
 	return  head->next;
 }
 
+int getNode(deque_node *head){
+	return  head->node;
+}
+
 deque_node *append(deque_node *head, int node){
 	deque_node *aux = head;
 	deque_node *new = (deque_node *) malloc (sizeof(deque_node));
@@ -27,3 +31,4 @@ int pop(deque_node *head){
 	free(aux);
 	return node;
 }
+

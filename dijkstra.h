@@ -6,5 +6,4 @@
 #include <stdbool.h>
 #include "adjlist.h"
 
-adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array);
-void print_graph(adj_array_node * array);
+void dijkstraCommercial(adj_array_node *array, int src,int d_nhops[], int d_route[]);

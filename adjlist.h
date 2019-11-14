@@ -17,3 +17,8 @@ adj_array_node *append_provider(int head, int tail, adj_array_node *array);
 adj_array_node *append_peer(int head, int tail, adj_array_node *array);
 adj_array_node *append_client(int head, int tail, adj_array_node *array);
 adj_array_node *setActive(int node, bool active, adj_array_node *array);
+
+bool isAvtive(adj_array_node *array, int node);
+deque_node *getClients(adj_array_node *array, int node);
+deque_node *getPeers(adj_array_node *array, int node);
+deque_node *getProviders(adj_array_node *array, int node);

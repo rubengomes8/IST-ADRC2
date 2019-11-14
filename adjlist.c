@@ -40,21 +40,37 @@ void free_adjacency_array(adj_array_node* array){
 }
 
 adj_array_node *append_provider(int head, int tail, adj_array_node *array){
-	append(array[head].head_providers, tail);
+	array[head].head_providers=append(array[head].head_providers, tail);
 	return array;
 }
 
 adj_array_node *append_peer(int head, int tail, adj_array_node *array){
-	append(array[head].head_peers, tail);
+	array[head].head_peers=append(array[head].head_peers, tail);
 	return array;
 }
 
 adj_array_node *append_client(int head, int tail, adj_array_node *array){
-	append(array[head].head_clients, tail);
+	array[head].head_clients=append(array[head].head_clients, tail);
 	return array;
 }
 
 adj_array_node *setActive(int node, bool active, adj_array_node *array){
 	array[node].flag_active = active;
 	return array;
+}
+
+bool isAvtive(adj_array_node *array, int node){
+	return array[node].flag_active;
+}
+
+deque_node *getClients(adj_array_node *array, int node){
+	return array[node].head_clients;
+}
+
+deque_node *getPeers(adj_array_node *array, int node){
+	return array[node].head_peers;
+}
+
+deque_node *getProviders(adj_array_node *array, int node){
+	return array[node].head_providers;
 }

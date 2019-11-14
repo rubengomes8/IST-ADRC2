@@ -5,7 +5,7 @@ adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array){
 	int tail, head, type;
 	if(fp != NULL){
 		while(fscanf(fp, "%d %d %d", &tail, &head, &type) != EOF){
-			printf("tail: %d || head: %d || type: %d\n", tail, head, type);
+			//printf("tail: %d || head: %d || type: %d\n", tail, head, type);
 			adj_array = setActive(tail, true, adj_array);
 			adj_array = setActive(head, true, adj_array);
 
@@ -23,4 +23,39 @@ adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array){
 		}
 	}
 	return adj_array;
+}
+
+
+void print_graph(adj_array_node * array){
+	int i=0;
+	deque_node *clients, *peers, *providers;
+	for(i=0; i <SIZE; i++){
+		if (isAvtive(array, i)==true){
+			printf("Node: %d\n", i);
+			clients=getClients(array,i);
+			printf("Clients:\n");
+			while (clients!=NULL)
+			{
+				printf("%d-> ", getNode(clients));
+				clients=getNext(clients);
+			}
+			peers=getPeers(array,i);
+			printf("\n");
+			printf("Peers:\n");
+			while (peers!=NULL)
+			{
+				printf("%d->", getNode(peers));
+				peers=getNext(peers);
+			}
+			providers=getProviders(array,i);
+			printf("\n");
+			printf("Providers:\n");
+			while (providers!=NULL)
+			{
+				printf("%d-> ", getNode(providers));
+				providers=getNext(providers);
+			}
+			printf("\n");
+		}
+	}
 }
