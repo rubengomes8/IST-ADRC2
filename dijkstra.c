@@ -1,6 +1,6 @@
 #include "dijkstra.h"
 
-adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int *types[], int *length_cum[]){
+adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[], int length_cum[]){
 
 	bool flag_abort=false;
 
@@ -47,7 +47,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int *types[
 				flag_abort = true;
 				break;
 			}
-			//printf("Node selected: %d\n", node_selected);
+			printf("Node selected: %d\n", node_selected);
 			if(selected[node_selected] == 1){
 			}else{
 				break;
@@ -56,8 +56,8 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int *types[
 		if(flag_abort)
 			continue;
 		if(node_selected != src){
-			*types[3 - d_route[node_selected]] ++;
-            *length_cum[d_nhops[node_selected]] ++;
+			types[3 - d_route[node_selected]] ++;
+            length_cum[d_nhops[node_selected]] ++;
 		}
 		selected[node_selected] = 1; // mark it as already selected
 		clients = getClients(array, node_selected);
@@ -99,6 +99,12 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int *types[
 			}
 		}
     }
+	for(int i=0; i<SIZE; i++){
+		if(isActive(array,i)){
+			printf("Node %d -> parent %d\n", i, parent[i]);
+		}
+	}
+
 	return array;
 }
 

@@ -6,5 +6,5 @@
 #include <stdbool.h>
 #include "adjlist.h"
 
-adj_array_node *dijkstraCommercial(adj_array_node *array, int src, int *types[], int *length_cum[]);
+adj_array_node *dijkstraCommercial(adj_array_node *array, int src, int types[], int length_cum[]);
 int max(int a, int b);
