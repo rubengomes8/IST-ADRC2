@@ -23,6 +23,20 @@ deque_node *append(deque_node *head, int node){
 	return head;
 }
 
+deque_node *append_right(deque_node *tail, int node){
+
+	deque_node *new = (deque_node *) malloc (sizeof(deque_node));
+	new->node = node;
+	new->next = NULL;
+
+	if(tail == NULL){
+		return new;
+	}else{
+		tail->next = new;
+		return new;
+	}
+}
+
 
 int pop(deque_node **head){
 	int node = (*head)->node;

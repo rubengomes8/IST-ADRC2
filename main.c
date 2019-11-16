@@ -62,21 +62,34 @@ int main(int argc, char *argv[]){
 				
 			}
 		}
+
+		//Fazer estatisticas
 		float sum=0;
 		for(i=0; i<3;i++){
 			printf("%d\n",types[i]);
 			sum=sum+types[i];
 		}
-		for(i=0; i<3;i++)
-			printf("\nTYPES: %f", 100*types[i]/sum);
-		// Fazer estatísticas
+		printf("Providers: %f\n", types[0]/sum * 100);
+		printf("Peers: %f\n", types[1]/sum * 100);
+		printf("Clients: %f\n", types[2]/sum * 100);
+
+		i=SIZE-1;
+		for(i=SIZE-1; i>0; i--)
+			length_cum[i-1] = length_cum[i] + length_cum[i-1]; //P(#hops) >= X)
+
+		i=1;
+		while(length_cum[i] != 0){
+			printf("P(#hops) >= %d = %f\n", i, (length_cum[i]/sum * 100));
+			i++;
+		}
+
 
 		// Libertar memória
 		//free_adjacency_array(adj_array);
 		
 	}
 
-	printf("Por implementar...\n");
+	
 	//fclose(fp);
 	exit(1);
 }
