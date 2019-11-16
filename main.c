@@ -8,7 +8,7 @@ int main(int argc, char *argv[]){
 	FILE *fp ;
 	adj_array_node *adj_array = NULL;
 	int i=0;
-	
+
 
 
 	int *types = (int *) malloc(3*sizeof(int));
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
 		printf("Active nodes\n");
 		for(i=0; i<SIZE;i++){
 			if (isActive(adj_array, i)){
-				printf("node: %d\n", i); 
+				printf("node: %d\n", i);
 			}
 		}*/
 		for(i=0; i<SIZE;i++){
@@ -50,16 +50,16 @@ int main(int argc, char *argv[]){
 		for(i=0; i<3;i++){
 			types[i]=0;
 		}
-		for(i=0; i<SIZE; i++){			
+		for(i=0; i<SIZE; i++){
 			if (isActive(adj_array, i)==true){
 				//printActive(adj_array);
-				printf("Dijkstra for node: %d\n", i);
+				//printf("Dijkstra for node: %d\n", i);
 
 				//dijkstraCommercial(adj_array, i, d_nhops, d_route, parent, selected, &types, &length_cum);
 				adj_array=dijkstraCommercial(adj_array, i, types, length_cum);
 				if (i % 500 == 0)
                     printf("Dijkstra done for source : %d\n", i);
-				
+
 			}
 		}
 
@@ -86,10 +86,10 @@ int main(int argc, char *argv[]){
 
 		// Libertar memória
 		//free_adjacency_array(adj_array);
-		
+
 	}
 
-	
+
 	//fclose(fp);
 	exit(1);
 }

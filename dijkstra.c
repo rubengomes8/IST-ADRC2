@@ -59,7 +59,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 				flag_abort = true;
 				break;
 			}
-			printf("Node selected: %d\n", node_selected);
+			//printf("Node selected: %d\n", node_selected);
 			if(selected[node_selected] == 1){
 			}else{
 				break;
@@ -86,7 +86,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 			}
 			clients = getNext(clients);
 		}
-		if(d_route[node_selected] <= 2){
+		if(d_route[node_selected] < 2){
 			peers = getPeers(array, node_selected);
 			while(peers != NULL){
 				ngbr = getNode(peers);
@@ -100,28 +100,27 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 				}
 				peers = getNext(peers);
 			}
-			if(d_route[node_selected] <= 1){
-				providers = getProviders(array, node_selected);
-				while(providers != NULL){
-					ngbr = getNode(providers);
-					if(d_route[ngbr] > max(d_route[node_selected], 1)){
-						d_nhops[ngbr] = d_nhops[node_selected] + 1;
-						d_route[ngbr] = max(d_route[node_selected], 1);
-						parent[ngbr] = node_selected;
-						queue_providers_tail = append_right(queue_providers_tail, ngbr);
-						if(queue_providers == NULL)
-							queue_providers = queue_providers_tail;
-					}
-					providers = getNext(providers);
+
+			providers = getProviders(array, node_selected);
+			while(providers != NULL){
+				ngbr = getNode(providers);
+				if(d_route[ngbr] > max(d_route[node_selected], 1)){
+					d_nhops[ngbr] = d_nhops[node_selected] + 1;
+					d_route[ngbr] = max(d_route[node_selected], 1);
+					parent[ngbr] = node_selected;
+					queue_providers_tail = append_right(queue_providers_tail, ngbr);
+					if(queue_providers == NULL)
+						queue_providers = queue_providers_tail;
 				}
+				providers = getNext(providers);
 			}
 		}
     }
-	for(int i=0; i<SIZE; i++){
+	/*for(int i=0; i<SIZE; i++){
 		if(isActive(array,i)){
 			printf("Node %d -> parent %d\n", i, parent[i]);
 		}
-	}
+	}*/
 
 	return array;
 }
