@@ -32,7 +32,7 @@ adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, deque_n
 	}
 
 	for(i=0;i<SIZE;i++){
-		if(tier_ones_array[i] == 1){
+		if(isActive(adj_array, i)==true && tier_ones_array[i] == 1  ){
 			printf("TIER-1: %d\n", i);
 			*tier_ones = append(*tier_ones, i);
 		}
