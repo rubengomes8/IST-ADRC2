@@ -9,6 +9,10 @@ int main(int argc, char *argv[]){
 	adj_array_node *adj_array = NULL;
 	deque_node *tier_ones = NULL;
 	int i=0;
+	int hops_max;
+	int *count_hops = NULL;
+	float sum=0;
+	int no_tier1 = 0;
 
 
 
@@ -32,20 +36,24 @@ int main(int argc, char *argv[]){
 
 
 		// Preencher grafo invertido a partir do ficheiro
-		adj_array = load_inverted_graph(fp, adj_array, &tier_ones);
+		adj_array = load_inverted_graph(fp, adj_array, &tier_ones, &no_tier1);
 
 		// Imprimir grafo invertido
 		//print_graph(adj_array);
 
 		// Verificar se grafo é comercialmente conexo
-		if(!isCommerciallyConex(adj_array, tier_ones)){
-			printf("O grafo não é comercialmente conexo! A sair...\n");
-			exit(-1);
+		printf("Number of Tier-1s: %d\n", no_tier1);
+		if(no_tier1 > 1){
+			if(!isCommerciallyConex(adj_array, tier_ones)){
+				printf("O grafo não é comercialmente conexo! A sair...\n");
+				exit(-1);
+			}
 		}
+		
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
 		for(i=0; i<SIZE;i++){
 			length_cum[i]=0;
-		}
+		} 
 		for(i=0; i<3;i++){
 			types[i]=0;
 		}
@@ -63,7 +71,6 @@ int main(int argc, char *argv[]){
 		}
 
 		//Fazer estatisticas
-		float sum=0;
 		for(i=0; i<3;i++){
 			printf("%d\n",types[i]);
 			sum=sum+types[i];
@@ -82,7 +89,28 @@ int main(int argc, char *argv[]){
 			i++;
 		}
 
+		hops_max = i-1;
+		count_hops = create_count_hops(hops_max);
+		i=0;
+		printf("Created count hops\n");
+		for(i=0; i<SIZE; i++){
+			if (isActive(adj_array, i)){
+				adj_array = bfs(adj_array, i, count_hops);
+				if (i % 1000 == 0)
+					printf("Bfs done for node: %d\n", i);
+			}
+		}
+		printf("BFS done\n");
+		for(i=0; i<(hops_max+1);i++){
+			printf("(#hops = %d): %d\n", i, count_hops[i]);
+		};
 
+		for(i=hops_max+1; i>0; i--)
+			count_hops[i-1] = count_hops[i] + count_hops[i-1]; //P(#hops) >= X)
+
+		for(i=1; i<hops_max+1; i++){
+			printf("P(#hops) >= %d = %f\n", i, (count_hops[i]/sum * 100));
+		}
 		// Libertar memória
 		//free_adjacency_array(adj_array);
 

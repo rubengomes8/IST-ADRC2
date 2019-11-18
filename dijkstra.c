@@ -8,7 +8,6 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 	int ngbr;
 	int d_nhops[SIZE];
 	int d_route[SIZE];
-	int parent[SIZE];
 	int selected[SIZE];
 
     deque_node *queue_clients = NULL;
@@ -24,13 +23,11 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 	for(i=0; i<SIZE;i++){
 		d_nhops[i] = 66000;
 		d_route[i] = 4;
-		parent[i]=0;
 		selected[i]=0;
 	}
 
 	d_nhops[src]=0;
     d_route[src]=1;
-    parent[src]=src;
 
     queue_providers_tail = append_right(queue_providers_tail, src);
 	queue_providers = queue_providers_tail;
@@ -79,7 +76,6 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 			if(d_route[ngbr] > max(d_route[node_selected], 3)){
 				d_nhops[ngbr] = d_nhops[node_selected] + 1;
 				d_route[ngbr] = 3;
-				parent[ngbr] = node_selected;
 				queue_clients_tail = append_right(queue_clients_tail, ngbr);
 				if(queue_clients == NULL)
 					queue_clients = queue_clients_tail;
@@ -93,7 +89,6 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 				if(d_route[ngbr] > max(d_route[node_selected], 2)){
 					d_nhops[ngbr] = d_nhops[node_selected] + 1;
 					d_route[ngbr] = max(d_route[node_selected], 2);
-					parent[ngbr] = node_selected;
 					queue_peers_tail = append_right(queue_peers_tail, ngbr);
 					if(queue_peers == NULL)
 						queue_peers = queue_peers_tail;
@@ -107,7 +102,6 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 				if(d_route[ngbr] > max(d_route[node_selected], 1)){
 					d_nhops[ngbr] = d_nhops[node_selected] + 1;
 					d_route[ngbr] = max(d_route[node_selected], 1);
-					parent[ngbr] = node_selected;
 					queue_providers_tail = append_right(queue_providers_tail, ngbr);
 					if(queue_providers == NULL)
 						queue_providers = queue_providers_tail;
@@ -116,11 +110,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 			}
 		}
     }
-	/*for(int i=0; i<SIZE; i++){
-		if(isActive(array,i)){
-			printf("Node %d -> parent %d\n", i, parent[i]);
-		}
-	}*/
+
 
 	return array;
 }
@@ -132,3 +122,89 @@ int max(int a, int b){
 		return b;
 	}
 }
+
+adj_array_node *bfs(adj_array_node *array, int src, int count_hops[]){
+
+	int discovered[SIZE] = {0};
+	int i = 0, j = 1, count_nodes = 0;
+	int node_selected = src;
+	discovered[src] = 1;
+	deque_node *queue_head = NULL;
+	deque_node *queue_tail = NULL;
+	deque_node *clients = NULL;
+	deque_node *peers = NULL;
+	deque_node *providers = NULL;
+	int ngbr = 0;
+
+	queue_tail = append_right(queue_tail, src);
+	queue_head = queue_tail;
+
+	while(queue_tail != NULL){
+		
+		while(j>0){
+			node_selected = pop(&queue_head);
+			if(queue_head == NULL)
+				queue_tail = NULL;
+			//printf("Node selected: %d\n", node_selected);
+
+			//Verificar vizinhos de node_selected
+			clients = getClients(array, node_selected);
+			peers = getPeers(array, node_selected);
+			providers = getProviders(array, node_selected);
+
+			while(clients != NULL){
+				ngbr = getNode(clients);
+				if(discovered[ngbr] == 0){
+					discovered[ngbr] = 1;
+					count_hops[i+1]++;
+					count_nodes++;
+					queue_tail = append_right(queue_tail, ngbr);
+					if(queue_head == NULL)
+						queue_head = queue_tail;
+				}
+				clients = getNext(clients);
+
+			}
+
+			while(peers != NULL){
+				ngbr = getNode(peers);
+				if(discovered[ngbr] == 0){
+					discovered[ngbr] = 1;
+					count_hops[i+1]++;
+					count_nodes++;
+					queue_tail = append_right(queue_tail, ngbr);
+					if(queue_head == NULL)
+						queue_head = queue_tail;
+				}
+				peers = getNext(peers);
+
+			}
+
+			while(providers != NULL){
+				ngbr = getNode(providers);
+				if(discovered[ngbr] == 0){
+					discovered[ngbr] = 1;
+					count_hops[i+1]++;
+					count_nodes++;
+					queue_tail = append_right(queue_tail, ngbr);
+					if(queue_head == NULL)
+						queue_head = queue_tail;
+				}
+				providers = getNext(providers);
+
+			}
+
+			//Por cada vizinho não discovered adicionar na queue e fazer count_nodes++;
+
+			j--;
+
+		}
+		j = count_nodes;
+		count_nodes = 0;
+		i++;
+	}
+
+
+	return array;
+}
+

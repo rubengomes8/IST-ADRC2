@@ -1,6 +1,6 @@
 #include "utils.h"
 
-adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, deque_node **tier_ones){
+adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, deque_node **tier_ones, int *no_tier1){
 	int tier_ones_array[SIZE];
 	int tail, head, type;
 	int i = 0;
@@ -32,12 +32,13 @@ adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, deque_n
 	}
 
 	for(i=0;i<SIZE;i++){
-		if(isActive(adj_array, i)==true && tier_ones_array[i] == 1  ){
+		if(isActive(adj_array, i)==true && tier_ones_array[i] == 1){
 			printf("TIER-1: %d\n", i);
+			*no_tier1=*no_tier1+1;
 			*tier_ones = append(*tier_ones, i);
 		}
 	}
-	return adj_array;
+	return adj_array; 
 }
 
 
@@ -86,4 +87,13 @@ bool isCommerciallyConex(adj_array_node *adj_array, deque_node *tier_ones){
 		aux=getNext(aux);
 	}
 	return true;
+}
+
+int *create_count_hops(int hops_max){
+	int i = 0;
+	int* count_hops = (int*) malloc((hops_max + 1)*sizeof(int));
+	for(i=0; i<hops_max+1;i++){
+		count_hops[i] = 0;
+	}
+	return count_hops;
 }
