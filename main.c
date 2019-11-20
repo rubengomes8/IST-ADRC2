@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
 	int i=0;
 	int hops_max;
 	int *count_hops = NULL;
-	float sum=0;
+	unsigned int sum=0;
 	int no_tier1 = 0;
 
 
@@ -75,9 +75,15 @@ int main(int argc, char *argv[]){
 			printf("%d\n",types[i]);
 			sum=sum+types[i];
 		}
-		printf("Providers: %f\n", types[0]/sum * 100);
-		printf("Peers: %f\n", types[1]/sum * 100);
-		printf("Clients: %f\n", types[2]/sum * 100);
+		printf("Providers: %f\n", (float) types[0]/sum * 100);
+		printf("Peers: %f\n", (float) types[1]/sum * 100);
+		printf("Clients: %f\n", (float) types[2]/sum * 100);
+
+		i=1;
+		while(length_cum[i] != 0){
+			printf("#hops = %d = %d\n", i, length_cum[i]);
+			i++;
+		}
 
 		i=SIZE-1;
 		for(i=SIZE-1; i>0; i--)
@@ -85,7 +91,7 @@ int main(int argc, char *argv[]){
 
 		i=1;
 		while(length_cum[i] != 0){
-			printf("P(#hops) >= %d = %f\n", i, (length_cum[i]/sum * 100));
+			printf("P(#hops) >= %d = %f\n", i, ((float) length_cum[i]/sum * 100));
 			i++;
 		}
 
@@ -109,7 +115,7 @@ int main(int argc, char *argv[]){
 			count_hops[i-1] = count_hops[i] + count_hops[i-1]; //P(#hops) >= X)
 
 		for(i=1; i<hops_max+1; i++){
-			printf("P(#hops) >= %d = %f\n", i, (count_hops[i]/sum * 100));
+			printf("P(#hops) >= %d = %f\n", i, ( (float) count_hops[i]/sum * 100));
 		}
 		// Libertar memória
 		//free_adjacency_array(adj_array);

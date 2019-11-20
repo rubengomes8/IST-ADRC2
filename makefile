@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -O3
 
 # typing 'make' will invoke the first target entry in the file
 # (in this case the default target entry)
