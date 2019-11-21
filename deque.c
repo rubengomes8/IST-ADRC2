@@ -11,6 +11,8 @@ deque_node *getNext(deque_node *head){
 }
 
 int getNode(deque_node *head){
+	if(head == NULL)
+		return -1;
 	return  head->node;
 }
 

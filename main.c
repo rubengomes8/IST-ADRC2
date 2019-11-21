@@ -50,6 +50,8 @@ int main(int argc, char *argv[]){
 		}*/
 
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
+		adj_array=check_cycles(adj_array);
+		
 		for(i=0; i<SIZE;i++){
 			length_cum[i]=0;
 		}

@@ -4,13 +4,23 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 
 	bool flag_abort=false;
 
-	int node_selected, i=0;
+	int node_selected = -1, i=0;
 	int ngbr;
 	int d_nhops[SIZE];
 	int d_route[SIZE];
 	int selected[SIZE];
 
+	int client;
+	int client_peer;
+	int client_provider;
+	int chosen = -1; // 1 - client, 2 - client_peer, 3 - client_prov
+	int n_hops = -1;
+
     deque_node *queue_clients = NULL;
+	deque_node *queue_clients_peers = NULL;
+	deque_node *queue_clients_providers = NULL;
+	deque_node *queue_clients_peers_tail = NULL;
+	deque_node *queue_clients_providers_tail = NULL;
     deque_node *queue_peers = NULL;
     deque_node *queue_providers = NULL;
 	deque_node *queue_clients_tail = NULL;
@@ -36,7 +46,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 
 
 	//printf("Adeus");
-    while(queue_clients != NULL || queue_peers != NULL || queue_providers != NULL){
+    while(queue_clients != NULL || queue_peers != NULL || queue_providers != NULL || queue_clients_peers != NULL|| queue_clients_providers != NULL){
 		while(true){
 			if(queue_providers != NULL){
 				node_selected = pop(&queue_providers);
@@ -46,10 +56,51 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 				node_selected = pop(&queue_peers);
 				if(queue_peers == NULL)
 					queue_peers_tail = NULL;
-			}else if(queue_clients != NULL){
-				node_selected = pop(&queue_clients);
+			}else if(queue_clients != NULL || queue_clients_providers != NULL || queue_clients_peers != NULL){
+				n_hops = SIZE+1;
+				client = getNode(queue_clients);
+				client_peer = getNode(queue_clients_peers);
+				client_provider = getNode(queue_clients_providers);
+				if(client != -1)
+				{
+					n_hops = d_nhops[client];
+					chosen = 1;
+				}
+
+				if(client_peer != -1)
+				{
+					if(d_nhops[client_peer] < n_hops){
+						chosen = 2;
+						n_hops = d_nhops[client_peer];
+					}
+				}
+
+				if(client_provider != -1)
+				{
+					if(d_nhops[client_provider] < n_hops){
+						chosen = 3;
+						n_hops = d_nhops[client_provider];
+					}
+				}
+					
+				if(chosen == 1){
+					node_selected = pop(&queue_clients);
+					if(queue_clients == NULL)
+						queue_clients_tail = NULL;
+				}else if(chosen == 2){
+					node_selected = pop(&queue_clients_peers);
+					if(queue_clients_peers == NULL)
+						queue_clients_peers_tail = NULL;
+				}else if(chosen == 3){
+					node_selected = pop(&queue_clients_providers);
+					if(queue_clients_providers == NULL)
+						queue_clients_providers_tail = NULL;
+				}
+
+
+				/*node_selected = pop(&queue_clients);
 				if(queue_clients == NULL)
-					queue_clients_tail = NULL;
+					queue_clients_tail = NULL;*/
 			}
 
 			else{
@@ -76,9 +127,27 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 			if(d_route[ngbr] > max(d_route[node_selected], 3)){
 				d_nhops[ngbr] = d_nhops[node_selected] + 1;
 				d_route[ngbr] = 3;
-				queue_clients_tail = append_right(queue_clients_tail, ngbr);
+				/*queue_clients_tail = append_right(queue_clients_tail, ngbr);
 				if(queue_clients == NULL)
-					queue_clients = queue_clients_tail;
+					queue_clients = queue_clients_tail;*/
+				if(d_route[node_selected] == 1 && node_selected != src){ //provider
+					queue_clients_providers_tail = append_right(queue_clients_providers_tail, ngbr);
+					if(queue_clients_providers == NULL)
+						queue_clients_providers = queue_clients_providers_tail;
+				} 
+				else if (d_route[node_selected] == 2 && node_selected != src)
+				{
+					queue_clients_peers_tail = append_right(queue_clients_peers_tail, ngbr);
+					if(queue_clients_peers == NULL)
+						queue_clients_peers = queue_clients_peers_tail;
+				}
+				else if (d_route[node_selected] == 3 || node_selected == src)
+				{
+					queue_clients_tail = append_right(queue_clients_tail, ngbr);
+					if(queue_clients == NULL)
+						queue_clients = queue_clients_tail;
+				}
+				
 			}
 			clients = getNext(clients);
 		}
@@ -205,6 +274,59 @@ adj_array_node *bfs(adj_array_node *array, int src, int count_hops[]){
 	}
 
 
+	return array;
+}
+
+
+adj_array_node *dfs(adj_array_node *array, int discovered_g[],int discovered_l[], int src){
+	deque_node *clients = getClients(array, src);
+	discovered_g[src] = 1;
+	discovered_l[src] = 1;
+	int node;
+	for(int i=0; i<SIZE; i++){
+		if(isActive(array,i))
+			printf("%d", discovered_l[i]);
+	}
+	while(clients != NULL){
+		node = getNode(clients);
+		if(discovered_l[node] == 0){
+			array=dfs(array, discovered_g, discovered_l, node);
+		}else if(discovered_l[node] == 1){
+			printf("O grafo tem ciclos de fornecedor-cliente! A sair...\n");
+			exit(-1);
+		}
+		clients=getNext(clients);
+	}
+	return array;
+}
+
+
+adj_array_node *check_cycles(adj_array_node *array){
+
+	int i=0, j =0;
+	int discovered_g[SIZE] = {0};
+	int discovered_l[SIZE];
+	for(j=0; j<SIZE; j++){
+		discovered_g[j] = 0;
+	}
+	while (i < SIZE)
+	{
+		if(isActive(array, i) && discovered_g[i] == 0){
+			printf("\n");
+			for(j=0; j<SIZE; j++){
+				discovered_l[j] = 0;
+			}
+			array=dfs(array, discovered_g, discovered_l, i);
+
+		}
+		i++;
+	}
+	
+	
+
+
+
+	
 	return array;
 }
 

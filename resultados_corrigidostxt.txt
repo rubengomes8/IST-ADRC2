@@ -1,0 +1,284 @@
+TIER-1: 174
+TIER-1: 209
+TIER-1: 701
+TIER-1: 1239
+TIER-1: 1299
+TIER-1: 2828
+TIER-1: 2914
+TIER-1: 3257
+TIER-1: 3356
+TIER-1: 3549
+TIER-1: 6453
+TIER-1: 6461
+TIER-1: 7018
+Dijkstra done for source : 500
+Dijkstra done for source : 1500
+Dijkstra done for source : 2000
+Dijkstra done for source : 2500
+Dijkstra done for source : 4500
+Dijkstra done for source : 5000
+Dijkstra done for source : 5500
+Dijkstra done for source : 6000
+Dijkstra done for source : 6500
+Dijkstra done for source : 7500
+Dijkstra done for source : 8000
+Dijkstra done for source : 8500
+Dijkstra done for source : 9000
+Dijkstra done for source : 9500
+Dijkstra done for source : 10000
+Dijkstra done for source : 10500
+Dijkstra done for source : 11500
+Dijkstra done for source : 12000
+Dijkstra done for source : 12500
+Dijkstra done for source : 13000
+Dijkstra done for source : 13500
+Dijkstra done for source : 14500
+Dijkstra done for source : 15000
+Dijkstra done for source : 15500
+Dijkstra done for source : 16500
+Dijkstra done for source : 18000
+Dijkstra done for source : 18500
+Dijkstra done for source : 20500
+Dijkstra done for source : 21000
+Dijkstra done for source : 21500
+Dijkstra done for source : 22000
+Dijkstra done for source : 23000
+Dijkstra done for source : 23500
+Dijkstra done for source : 24500
+Dijkstra done for source : 25000
+Dijkstra done for source : 25500
+Dijkstra done for source : 26500
+Dijkstra done for source : 27000
+Dijkstra done for source : 27500
+Dijkstra done for source : 28000
+Dijkstra done for source : 29000
+Dijkstra done for source : 29500
+Dijkstra done for source : 30000
+Dijkstra done for source : 31000
+Dijkstra done for source : 31500
+Dijkstra done for source : 33500
+Dijkstra done for source : 34000
+Dijkstra done for source : 34500
+Dijkstra done for source : 35000
+Dijkstra done for source : 36000
+Dijkstra done for source : 36500
+Dijkstra done for source : 37000
+Dijkstra done for source : 37500
+Dijkstra done for source : 38000
+Dijkstra done for source : 38500
+Dijkstra done for source : 39500
+Dijkstra done for source : 40000
+Dijkstra done for source : 40500
+Dijkstra done for source : 41000
+Dijkstra done for source : 42000
+Dijkstra done for source : 43500
+Dijkstra done for source : 44000
+Dijkstra done for source : 45000
+Dijkstra done for source : 45500
+Dijkstra done for source : 46500
+Dijkstra done for source : 47000
+Dijkstra done for source : 48500
+Dijkstra done for source : 49000
+Dijkstra done for source : 49500
+Dijkstra done for source : 51000
+Dijkstra done for source : 52000
+Dijkstra done for source : 54500
+Dijkstra done for source : 56000
+Dijkstra done for source : 56500
+Dijkstra done for source : 58000
+Dijkstra done for source : 60500
+Dijkstra done for source : 62500
+Dijkstra done for source : 63000
+Dijkstra done for source : 64500
+Dijkstra done for source : 65000
+Dijkstra done for source : 65500
+1704470972
+217369490
+11828240
+Providers: 88.146996
+Peers: 11.241299
+Clients: 0.611699
+#hops = 1 = 211648
+#hops = 2 = 57972503
+#hops = 3 = 344021711
+#hops = 4 = 514845710
+#hops = 5 = 373747939
+#hops = 6 = 234237147
+#hops = 7 = 143018742
+#hops = 8 = 89728483
+#hops = 9 = 56743299
+#hops = 10 = 36300925
+#hops = 11 = 24217885
+#hops = 12 = 16662437
+#hops = 13 = 11021984
+#hops = 14 = 7470907
+#hops = 15 = 6095036
+#hops = 16 = 5949167
+#hops = 17 = 4300877
+#hops = 18 = 2559306
+#hops = 19 = 1435746
+#hops = 20 = 896882
+#hops = 21 = 843568
+#hops = 22 = 543185
+#hops = 23 = 309347
+#hops = 24 = 210589
+#hops = 25 = 137286
+#hops = 26 = 95384
+#hops = 27 = 53607
+#hops = 28 = 19951
+#hops = 29 = 7811
+#hops = 30 = 6603
+#hops = 31 = 2446
+#hops = 32 = 432
+#hops = 33 = 121
+#hops = 34 = 30
+#hops = 35 = 8
+P(#hops) >= 1 = 100.000000
+P(#hops) >= 2 = 99.989052
+P(#hops) >= 3 = 96.990997
+P(#hops) >= 4 = 79.199852
+P(#hops) >= 5 = 52.574528
+P(#hops) >= 6 = 33.246086
+P(#hops) >= 7 = 21.132473
+P(#hops) >= 8 = 13.736237
+P(#hops) >= 9 = 9.095912
+P(#hops) >= 10 = 6.161423
+P(#hops) >= 11 = 4.284115
+P(#hops) >= 12 = 3.031683
+P(#hops) >= 13 = 2.169982
+P(#hops) >= 14 = 1.599979
+P(#hops) >= 15 = 1.213620
+P(#hops) >= 16 = 0.898414
+P(#hops) >= 17 = 0.590752
+P(#hops) >= 18 = 0.368331
+P(#hops) >= 19 = 0.235976
+P(#hops) >= 20 = 0.161726
+P(#hops) >= 21 = 0.115344
+P(#hops) >= 22 = 0.071719
+P(#hops) >= 23 = 0.043628
+P(#hops) >= 24 = 0.027630
+P(#hops) >= 25 = 0.016739
+P(#hops) >= 26 = 0.009639
+P(#hops) >= 27 = 0.004707
+P(#hops) >= 28 = 0.001934
+P(#hops) >= 29 = 0.000902
+P(#hops) >= 30 = 0.000499
+P(#hops) >= 31 = 0.000157
+P(#hops) >= 32 = 0.000031
+P(#hops) >= 33 = 0.000008
+P(#hops) >= 34 = 0.000002
+P(#hops) >= 35 = 0.000000
+Created count hops
+Bfs done for node: 2000
+Bfs done for node: 5000
+Bfs done for node: 6000
+Bfs done for node: 8000
+Bfs done for node: 9000
+Bfs done for node: 10000
+Bfs done for node: 12000
+Bfs done for node: 13000
+Bfs done for node: 15000
+Bfs done for node: 18000
+Bfs done for node: 21000
+Bfs done for node: 22000
+Bfs done for node: 23000
+Bfs done for node: 25000
+Bfs done for node: 27000
+Bfs done for node: 28000
+Bfs done for node: 29000
+Bfs done for node: 30000
+Bfs done for node: 31000
+Bfs done for node: 34000
+Bfs done for node: 35000
+Bfs done for node: 36000
+Bfs done for node: 37000
+Bfs done for node: 38000
+Bfs done for node: 40000
+Bfs done for node: 41000
+Bfs done for node: 42000
+Bfs done for node: 44000
+Bfs done for node: 45000
+Bfs done for node: 47000
+Bfs done for node: 49000
+Bfs done for node: 51000
+Bfs done for node: 52000
+Bfs done for node: 56000
+Bfs done for node: 58000
+Bfs done for node: 63000
+Bfs done for node: 65000
+BFS done
+(#hops = 0): 0
+(#hops = 1): 246490
+(#hops = 2): 75193868
+(#hops = 3): 605992500
+(#hops = 4): 879619438
+(#hops = 5): 310454770
+(#hops = 6): 51342194
+(#hops = 7): 8081306
+(#hops = 8): 2441544
+(#hops = 9): 283170
+(#hops = 10): 13312
+(#hops = 11): 110
+(#hops = 12): 0
+(#hops = 13): 0
+(#hops = 14): 0
+(#hops = 15): 0
+(#hops = 16): 0
+(#hops = 17): 0
+(#hops = 18): 0
+(#hops = 19): 0
+(#hops = 20): 0
+(#hops = 21): 0
+(#hops = 22): 0
+(#hops = 23): 0
+(#hops = 24): 0
+(#hops = 25): 0
+(#hops = 26): 0
+(#hops = 27): 0
+(#hops = 28): 0
+(#hops = 29): 0
+(#hops = 30): 0
+(#hops = 31): 0
+(#hops = 32): 0
+(#hops = 33): 0
+(#hops = 34): 0
+(#hops = 35): 0
+P(#hops) >= 1 = 100.000000
+P(#hops) >= 2 = 99.987251
+P(#hops) >= 3 = 96.098587
+P(#hops) >= 4 = 64.759590
+P(#hops) >= 5 = 19.269920
+P(#hops) >= 6 = 3.214700
+P(#hops) >= 7 = 0.559529
+P(#hops) >= 8 = 0.141603
+P(#hops) >= 9 = 0.015338
+P(#hops) >= 10 = 0.000694
+P(#hops) >= 11 = 0.000006
+P(#hops) >= 12 = 0.000000
+P(#hops) >= 13 = 0.000000
+P(#hops) >= 14 = 0.000000
+P(#hops) >= 15 = 0.000000
+P(#hops) >= 16 = 0.000000
+P(#hops) >= 17 = 0.000000
+P(#hops) >= 18 = 0.000000
+P(#hops) >= 19 = 0.000000
+P(#hops) >= 20 = 0.000000
+P(#hops) >= 21 = 0.000000
+P(#hops) >= 22 = 0.000000
+P(#hops) >= 23 = 0.000000
+P(#hops) >= 24 = 0.000000
+P(#hops) >= 25 = 0.000000
+P(#hops) >= 26 = 0.000000
+P(#hops) >= 27 = 0.000000
+P(#hops) >= 28 = 0.000000
+P(#hops) >= 29 = 0.000000
+P(#hops) >= 30 = 0.000000
+P(#hops) >= 31 = 0.000000
+P(#hops) >= 32 = 0.000000
+P(#hops) >= 33 = 0.000000
+P(#hops) >= 34 = 0.000000
+P(#hops) >= 35 = 0.000000
+
+real    24m20.582s
+user    24m19.453s
+sys     0m0.188s
