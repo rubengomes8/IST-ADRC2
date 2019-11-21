@@ -1,8 +1,9 @@
 #include "utils.h"
 
-adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, deque_node **tier_ones, int *no_tier1){
+adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, int *no_tier1){
 	int tier_ones_array[SIZE];
 	int tail, head, type;
+	deque_node *peers = NULL;
 	int i = 0;
 	for(i=0; i<SIZE; i++){
 		tier_ones_array[i]=1;
@@ -35,10 +36,16 @@ adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, deque_n
 		if(isActive(adj_array, i)==true && tier_ones_array[i] == 1){
 			printf("TIER-1: %d\n", i);
 			*no_tier1=*no_tier1+1;
-			*tier_ones = append(*tier_ones, i);
+			if(*no_tier1 >= 2){
+				peers = getPeers(adj_array, i);
+				if(peers == NULL){
+					printf("O grafo não é comercialmente conexo! A sair...\n");
+					exit(-1);
+				}
+			}
 		}
 	}
-	return adj_array; 
+	return adj_array;
 }
 
 
