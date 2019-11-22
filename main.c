@@ -43,6 +43,7 @@ int main(int argc, char *argv[]){
 
 		// Verificar se grafo é comercialmente conexo
 		//printf("Number of Tier-1s: %d\n", no_tier1);
+		printf("OLA\n");
 		if(no_tier1 > 1){
 			if(!isCommerciallyConex(adj_array, tier_ones)){
 				printf("O grafo não é comercialmente conexo! A sair...\n");
@@ -52,7 +53,11 @@ int main(int argc, char *argv[]){
 		printf("Grafo conexo\n");
 
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
-		//adj_array=check_cycles(adj_array);
+		if(check_cycles(adj_array)){
+			printf("Existe pelo menos um ciclo fornecedor-cliente! A sair...\n");
+			exit(-1);
+		}
+		printf("Grafo não tem ciclos\n");
 
 		for(i=0; i<SIZE;i++){
 			length_cum[i]=0;

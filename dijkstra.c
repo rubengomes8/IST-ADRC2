@@ -278,54 +278,55 @@ adj_array_node *bfs(adj_array_node *array, int src, int count_hops[]){
 }
 
 
-adj_array_node *dfs(adj_array_node *array, int discovered_g[],int discovered_l[], int src){
+bool dfs(adj_array_node *array, bool discovered[], bool visited[], bool recursiveArr[], int src){
 	deque_node *clients = getClients(array, src);
-	discovered_g[src] = 1;
-	discovered_l[src] = 1;
 	int node;
-	for(int i=0; i<SIZE; i++){
+	discovered[src] = true;
+	visited[src] = true;
+	recursiveArr[src] = true;
+	adj_array_node *aux_array = array;
+
+	/*for(int i=0; i<SIZE; i++){
 		if(isActive(array,i))
 			printf("%d", discovered_l[i]);
-	}
+	}*/
+
 	while(clients != NULL){
 		node = getNode(clients);
-		if(discovered_l[node] == 0){
-			array=dfs(array, discovered_g, discovered_l, node);
-		}else if(discovered_l[node] == 1){
-			printf("O grafo tem ciclos de fornecedor-cliente! A sair...\n");
-			exit(-1);
+		if(!visited[node] && 	dfs(aux_array, discovered, visited, recursiveArr, node)){
+			return true;
+		}else if(recursiveArr[node]){
+			return true;
 		}
 		clients=getNext(clients);
 	}
-	return array;
+	recursiveArr[src] = false;
+	return false;
 }
 
 
-adj_array_node *check_cycles(adj_array_node *array){
+bool check_cycles(adj_array_node *array){
 
-	int i=0, j =0;
-	int discovered_g[SIZE] = {0};
-	int discovered_l[SIZE];
+	int i=0, j=0;
+	bool discovered[SIZE];
+	bool visited[SIZE];
+	bool recursiveArr[SIZE];
+	adj_array_node *aux_array = array;
+
 	for(j=0; j<SIZE; j++){
-		discovered_g[j] = 0;
+		discovered[j] = false;
 	}
 	while (i < SIZE)
 	{
-		if(isActive(array, i) && discovered_g[i] == 0){
-			printf("\n");
+		if(isActive(aux_array, i) && !discovered[i]){
 			for(j=0; j<SIZE; j++){
-				discovered_l[j] = 0;
+				visited[j] = false;
+				recursiveArr[j] = false;
 			}
-			array=dfs(array, discovered_g, discovered_l, i);
-
+			if(dfs(aux_array, discovered, visited, recursiveArr, i))
+				return true;
 		}
 		i++;
 	}
-
-
-
-
-
-
-	return array;
+	return false;
 }
