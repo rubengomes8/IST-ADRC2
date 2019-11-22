@@ -99,6 +99,7 @@ int main(int argc, char *argv[]){
 
 		i=1;
 		while(length_cum[i] != 0){
+			printf("(#hops) >= %d: %d\n", i, length_cum[i]);
 			printf("P(#hops) >= %d = %f\n", i, ((float) length_cum[i]/sum * 100));
 			i++;
 		}
@@ -115,14 +116,15 @@ int main(int argc, char *argv[]){
 			}
 		}
 		printf("BFS done\n");
-		for(i=0; i<(hops_max+1);i++){
+		/*for(i=0; i<(hops_max+1);i++){
 			printf("(#hops = %d): %d\n", i, count_hops[i]);
-		};
+		};*/
 
 		for(i=hops_max+1; i>0; i--)
 			count_hops[i-1] = count_hops[i] + count_hops[i-1]; //P(#hops) >= X)
 
 		for(i=1; i<hops_max+1; i++){
+			printf("(#hops) >= %d: %d\n", i, count_hops[i]);
 			printf("P(#hops) >= %d = %f\n", i, ( (float) count_hops[i]/sum * 100));
 		}
 		// Libertar memória

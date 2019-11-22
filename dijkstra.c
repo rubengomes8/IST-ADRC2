@@ -30,6 +30,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 	deque_node *peers = NULL;
 	deque_node *providers = NULL;
 
+	printf("\nSOURCE: %d\n", src);
 	for(i=0; i<SIZE;i++){
 		d_nhops[i] = 66000;
 		d_route[i] = 4;
@@ -42,10 +43,6 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
     queue_providers_tail = append_right(queue_providers_tail, src);
 	queue_providers = queue_providers_tail;
 
-
-
-
-	//printf("Adeus");
     while(queue_clients != NULL || queue_peers != NULL || queue_providers != NULL || queue_clients_peers != NULL|| queue_clients_providers != NULL){
 		while(true){
 			if(queue_providers != NULL){
@@ -96,11 +93,6 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 					if(queue_clients_providers == NULL)
 						queue_clients_providers_tail = NULL;
 				}
-
-
-				/*node_selected = pop(&queue_clients);
-				if(queue_clients == NULL)
-					queue_clients_tail = NULL;*/
 			}
 
 			else{
@@ -113,6 +105,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 				break;
 			}
 		}
+		printf("Node selected: %d\n", node_selected);
 		if(flag_abort)
 			continue;
 		if(node_selected != src){
@@ -180,6 +173,11 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 		}
     }
 
+		for (i=0; i<SIZE;i++){
+			if(isActive(array,i)){
+				printf("Node: %d | Rota: %d | Hops: %d\n", i, d_route[i], d_nhops[i]);
+			}
+		}
 
 	return array;
 }
