@@ -12,6 +12,7 @@ int main(int argc, char *argv[]){
 	int *count_hops = NULL;
 	unsigned int sum=0;
 	int no_tier1 = 0;
+	deque_node *tier_ones = NULL;
 
 
 
@@ -35,23 +36,24 @@ int main(int argc, char *argv[]){
 
 
 		// Preencher grafo invertido a partir do ficheiro
-		adj_array = load_inverted_graph(fp, adj_array, &no_tier1);
+		adj_array = load_inverted_graph(fp, adj_array, &no_tier1, &tier_ones);
 
 		// Imprimir grafo invertido
 		//print_graph(adj_array);
 
 		// Verificar se grafo é comercialmente conexo
-		/*printf("Number of Tier-1s: %d\n", no_tier1);
+		//printf("Number of Tier-1s: %d\n", no_tier1);
 		if(no_tier1 > 1){
 			if(!isCommerciallyConex(adj_array, tier_ones)){
 				printf("O grafo não é comercialmente conexo! A sair...\n");
 				exit(-1);
 			}
-		}*/
+		}
+		printf("Grafo conexo\n");
 
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
-		adj_array=check_cycles(adj_array);
-		
+		//adj_array=check_cycles(adj_array);
+
 		for(i=0; i<SIZE;i++){
 			length_cum[i]=0;
 		}

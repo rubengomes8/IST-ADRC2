@@ -82,7 +82,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 						n_hops = d_nhops[client_provider];
 					}
 				}
-					
+
 				if(chosen == 1){
 					node_selected = pop(&queue_clients);
 					if(queue_clients == NULL)
@@ -134,7 +134,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 					queue_clients_providers_tail = append_right(queue_clients_providers_tail, ngbr);
 					if(queue_clients_providers == NULL)
 						queue_clients_providers = queue_clients_providers_tail;
-				} 
+				}
 				else if (d_route[node_selected] == 2 && node_selected != src)
 				{
 					queue_clients_peers_tail = append_right(queue_clients_peers_tail, ngbr);
@@ -147,7 +147,7 @@ adj_array_node  *dijkstraCommercial(adj_array_node *array, int src,  int types[]
 					if(queue_clients == NULL)
 						queue_clients = queue_clients_tail;
 				}
-				
+
 			}
 			clients = getNext(clients);
 		}
@@ -209,7 +209,7 @@ adj_array_node *bfs(adj_array_node *array, int src, int count_hops[]){
 	queue_head = queue_tail;
 
 	while(queue_tail != NULL){
-		
+
 		while(j>0){
 			node_selected = pop(&queue_head);
 			if(queue_head == NULL)
@@ -321,12 +321,11 @@ adj_array_node *check_cycles(adj_array_node *array){
 		}
 		i++;
 	}
-	
-	
 
 
 
-	
+
+
+
 	return array;
 }
-

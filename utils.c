@@ -1,9 +1,8 @@
 #include "utils.h"
 
-adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, int *no_tier1){
+adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, int *no_tier1, deque_node **tier_ones){
 	int tier_ones_array[SIZE];
 	int tail, head, type;
-	deque_node *peers = NULL;
 	int i = 0;
 	for(i=0; i<SIZE; i++){
 		tier_ones_array[i]=1;
@@ -36,13 +35,7 @@ adj_array_node *load_inverted_graph(FILE *fp, adj_array_node *adj_array, int *no
 		if(isActive(adj_array, i)==true && tier_ones_array[i] == 1){
 			printf("TIER-1: %d\n", i);
 			*no_tier1=*no_tier1+1;
-			if(*no_tier1 >= 2){
-				peers = getPeers(adj_array, i);
-				if(peers == NULL){
-					printf("O grafo não é comercialmente conexo! A sair...\n");
-					exit(-1);
-				}
-			}
+			*tier_ones = append(*tier_ones, i);
 		}
 	}
 	return adj_array;
@@ -86,14 +79,45 @@ void print_graph(adj_array_node * array){
 bool isCommerciallyConex(adj_array_node *adj_array, deque_node *tier_ones){
 	deque_node *aux = tier_ones;
 	deque_node *peers;
+	bool conex;
 	while(aux != NULL){
 		peers = getPeers(adj_array, getNode(aux));
-		if(peers == NULL){
+		conex = check_tier_one_in_peers(peers, tier_ones, getNode(aux));
+		if(!conex)
 			return false;
-		}
 		aux=getNext(aux);
 	}
 	return true;
+}
+
+
+bool check_tier_one_in_peers(deque_node *peers, deque_node *tier_ones, int tier1){
+		deque_node *aux_tiers = tier_ones;
+		deque_node *aux_peers = peers;
+		int node_tier;
+		int peer;
+		bool found = false;
+		while(aux_tiers != NULL){
+			node_tier=getNode(aux_tiers);
+			if(node_tier==tier1){
+				aux_tiers = getNext(aux_tiers);
+				continue;
+			}
+			while (aux_peers != NULL){
+				peer = getNode(aux_peers);
+				if(node_tier == peer){
+					aux_peers = peers;
+					found = true;
+					break;
+				}
+				aux_peers = getNext(aux_peers);
+			}
+			if(found == false)
+				return false;
+			aux_tiers = getNext(aux_tiers);
+			found = false;
+		}
+		return true;
 }
 
 int *create_count_hops(int hops_max){
