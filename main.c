@@ -9,7 +9,7 @@ int main(int argc, char *argv[]){
 	adj_array_node *adj_array = NULL;
 	int i=0;
 	int hops_max;
-	int *count_hops = NULL;
+	int *count_hops;
 	unsigned int sum=0;
 	int no_tier1 = 0;
 	deque_node *tier_ones = NULL;
@@ -43,7 +43,6 @@ int main(int argc, char *argv[]){
 
 		// Verificar se grafo é comercialmente conexo
 		//printf("Number of Tier-1s: %d\n", no_tier1);
-		printf("OLA\n");
 		if(no_tier1 > 1){
 			if(!isCommerciallyConex(adj_array, tier_ones)){
 				printf("O grafo não é comercialmente conexo! A sair...\n");
@@ -105,7 +104,11 @@ int main(int argc, char *argv[]){
 		}
 
 		hops_max = i-1;
-		count_hops = create_count_hops(hops_max);
+		//count_hops = create_count_hops(hops_max);
+		count_hops = (int *)malloc(i*sizeof(int));
+		for(i=0; i<hops_max+1;i++){
+			count_hops[i] = 0;
+		}
 		i=0;
 		printf("Created count hops\n");
 		for(i=0; i<SIZE; i++){
@@ -115,7 +118,7 @@ int main(int argc, char *argv[]){
 					printf("Bfs done for node: %d\n", i);
 			}
 		}
-		printf("BFS done\n");
+
 		/*for(i=0; i<(hops_max+1);i++){
 			printf("(#hops = %d): %d\n", i, count_hops[i]);
 		};*/
@@ -128,7 +131,12 @@ int main(int argc, char *argv[]){
 			printf("P(#hops) >= %d = %f\n", i, ( (float) count_hops[i]/sum * 100));
 		}
 		// Libertar memória
-		//free_adjacency_array(adj_array);
+		free_adjacency_array(adj_array);
+		free(types);
+		free(length_cum);
+		free(count_hops);
+		free_list_tiers(tier_ones);
+		fclose(fp);
 
 	}
 

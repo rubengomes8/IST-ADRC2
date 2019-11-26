@@ -12,3 +12,4 @@ adj_array_node *bfs(adj_array_node *array, int src, int count_hops[]);
 
 bool dfs(adj_array_node *array, bool discovered[], bool visited[], bool recursiveArr[], int src);
 bool check_cycles(adj_array_node *array);
+int get_min(int a, int b, int c);

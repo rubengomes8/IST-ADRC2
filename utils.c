@@ -121,9 +121,19 @@ bool check_tier_one_in_peers(deque_node *peers, deque_node *tier_ones, int tier1
 
 int *create_count_hops(int hops_max){
 	int i = 0;
-	int* count_hops = (int*) malloc((hops_max + 1)*sizeof(int));
+	int *count_hops = (int *)malloc((hops_max+1)*sizeof(int));
 	for(i=0; i<hops_max+1;i++){
 		count_hops[i] = 0;
 	}
 	return count_hops;
+}
+
+void free_list_tiers(deque_node *head){
+	deque_node *cur = head;
+	deque_node *aux = cur;
+	while(aux != NULL){
+		aux = getNext(aux);
+		free(cur);
+		cur = aux;
+	}
 }
