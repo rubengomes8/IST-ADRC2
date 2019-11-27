@@ -9,7 +9,7 @@ int main(int argc, char *argv[]){
 	adj_array_node *adj_array = NULL;
 	int i=0;
 	int hops_max;
-	int *count_hops;
+	int count_hops[SIZE];
 	unsigned int sum=0;
 	int no_tier1 = 0;
 	deque_node *tier_ones = NULL;
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 				exit(-1);
 			}
 		}
-		printf("Grafo conexo\n");
+		printf("Grafo é conexo\n");
 
 		// Para cada nó aplicar Dijkstra Comercial e Dijkstra normal
 		if(check_cycles(adj_array)){
@@ -66,75 +66,62 @@ int main(int argc, char *argv[]){
 		}
 		for(i=0; i<SIZE; i++){
 			if (isActive(adj_array, i)==true){
-				//printActive(adj_array);
-				//printf("Dijkstra for node: %d\n", i);
-
-				//dijkstraCommercial(adj_array, i, d_nhops, d_route, parent, selected, &types, &length_cum);
 				adj_array=dijkstraCommercial(adj_array, i, types, length_cum);
-				if (i % 500 == 0)
-                    printf("Dijkstra done for source : %d\n", i);
-
 			}
 		}
 
 		//Fazer estatisticas
 		for(i=0; i<3;i++){
-			printf("%d\n",types[i]);
+			//printf("%d\n",types[i]);
 			sum=sum+types[i];
 		}
+		printf("\nPercentagem de rotas de cada tipo:\n");
 		printf("Providers: %f\n", (float) types[0]/sum * 100);
 		printf("Peers: %f\n", (float) types[1]/sum * 100);
 		printf("Clients: %f\n", (float) types[2]/sum * 100);
 
-		i=1;
+		/*i=1;
 		while(length_cum[i] != 0){
 			printf("#hops = %d = %d\n", i, length_cum[i]);
 			i++;
-		}
+		}*/
 
 		i=SIZE-1;
 		for(i=SIZE-1; i>0; i--)
 			length_cum[i-1] = length_cum[i] + length_cum[i-1]; //P(#hops) >= X)
 
 		i=1;
+
+		printf("\nPercentagens cumulativas das distâncias comerciais mais curtas:\n");
 		while(length_cum[i] != 0){
-			printf("(#hops) >= %d: %d\n", i, length_cum[i]);
+			//printf("(#hops) >= %d: %d\n", i, length_cum[i]);
 			printf("P(#hops) >= %d = %f\n", i, ((float) length_cum[i]/sum * 100));
 			i++;
 		}
 
 		hops_max = i-1;
-		//count_hops = create_count_hops(hops_max);
-		count_hops = (int *)malloc(i*sizeof(int));
-		for(i=0; i<hops_max+1;i++){
+		for(i=0; i<SIZE;i++){
 			count_hops[i] = 0;
 		}
 		i=0;
-		printf("Created count hops\n");
+
 		for(i=0; i<SIZE; i++){
 			if (isActive(adj_array, i)){
 				adj_array = bfs(adj_array, i, count_hops);
-				if (i % 1000 == 0)
-					printf("Bfs done for node: %d\n", i);
 			}
 		}
 
-		/*for(i=0; i<(hops_max+1);i++){
-			printf("(#hops = %d): %d\n", i, count_hops[i]);
-		};*/
-
 		for(i=hops_max+1; i>0; i--)
 			count_hops[i-1] = count_hops[i] + count_hops[i-1]; //P(#hops) >= X)
-
+		printf("\nPercentagens cumulativas das distâncias mais curtas:\n");
 		for(i=1; i<hops_max+1; i++){
-			printf("(#hops) >= %d: %d\n", i, count_hops[i]);
+			//printf("(#hops) >= %d: %d\n", i, count_hops[i]);
 			printf("P(#hops) >= %d = %f\n", i, ( (float) count_hops[i]/sum * 100));
 		}
 		// Libertar memória
 		free_adjacency_array(adj_array);
 		free(types);
 		free(length_cum);
-		free(count_hops);
 		free_list_tiers(tier_ones);
 		fclose(fp);
 
