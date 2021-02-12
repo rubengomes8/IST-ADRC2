@@ -1,1 +1,1 @@
-# 2º Projeto de Análise de Redes e de Computadores
+# 2º Projeto de Algoritmia e Desempenho em Redes de Computadores
